@@ -33,15 +33,23 @@ public class ATM {
 		}
 	}
 	public boolean depositMoney(Integer accNumber, double depositMoney) {
-		if(!accExists(accNumber)) {
+		if(!accExists(accNumber)||depositMoney<0) {
 			return false;
 		}else {
 			accounts.get(accNumber).deposit(depositMoney);
 			return true;
 		}
 	}
-	//rounding issues?
 	
+	//rounding issues?
+	public boolean withdrawMoney (Integer accNumber, double withdrawMoney) {
+		if(!accExists(accNumber)||withdrawMoney<0) {
+			return false;
+		}else {
+			accounts.get(accNumber).withDraw(withdrawMoney);
+			return true;
+		}
+	}
 	
 	
 }
