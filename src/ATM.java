@@ -12,6 +12,8 @@ public class ATM {
 	public void openAccount(Integer accNumber, double deposit ) {
 		accounts.put(accNumber,new BankAccount(deposit));
 	}
+	
+	
 	private boolean accExists(Integer accNumber) {
 		if(accounts.get(accNumber)==null) {
 			return false;
@@ -19,6 +21,7 @@ public class ATM {
 			return true;
 		}
 	}
+	
 	
 	public void closeAccount(Integer accNumber) {
 		accounts.put(accNumber, null);
@@ -33,7 +36,7 @@ public class ATM {
 		}
 	}
 	public boolean depositMoney(Integer accNumber, double depositMoney) {
-		if(!accExists(accNumber)||depositMoney<0) {
+		if((!accExists(accNumber))||depositMoney<0) {
 			return false;
 		}else {
 			accounts.get(accNumber).deposit(depositMoney);
@@ -43,7 +46,7 @@ public class ATM {
 	
 	//rounding issues?
 	public boolean withdrawMoney (Integer accNumber, double withdrawMoney) {
-		if(!accExists(accNumber)||withdrawMoney<0) {
+		if((!accExists(accNumber))||withdrawMoney<0||withdrawMoney>accounts.get(accNumber).getBalance()) {
 			return false;
 		}else {
 			accounts.get(accNumber).withDraw(withdrawMoney);
