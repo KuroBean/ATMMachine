@@ -2,38 +2,46 @@ import java.util.*;
 
 public class ATM {
 	private Integer id;
-	private BankAccount openedAcc;
 	public HashMap<Integer,BankAccount> accounts=new HashMap<Integer,BankAccount>();
 	public ATM() {
 		
 	}
 	public void openAccount(Integer accNumber ) {
-		openedAcc=accounts.get(accNumber);
+		accounts.put(accNumber,new BankAccount());
 	}
 	public void openAccount(Integer accNumber, double deposit ) {
-		openedAcc=accounts.get(accNumber);
-		openedAcc.deposit(deposit);
+		accounts.put(accNumber,new BankAccount(deposit));
 	}
-	public void closeAccount(Integer accNumber) {
-		try {
-			if(openedAcc.getBalance()==0) {
-			openedAcc=null;
-			}
-		}catch(Exception e) {
-			System.out.println("no account opened");
+	private boolean accExists(Integer accNumber) {
+		if(accounts.get(accNumber)==null) {
+			return false;
+		}else {
+			return true;
 		}
+	}
+	
+	public void closeAccount(Integer accNumber) {
+		accounts.put(accNumber, null);
 		
 	}
 	public double checkBalance(Integer accNumber) {
-		if(openedAcc==null) {
+		if(!accExists(accNumber)) {
 			return 0.0;
-		}else {
-			return openedAcc.getBalance();
+		}
+		else {
+			return accounts.get(accNumber).getBalance();
 		}
 	}
-	public boolean depositMoney() {
-		
+	public boolean depositMoney(Integer accNumber, double depositMoney) {
+		if(!accExists(accNumber)) {
+			return false;
+		}else {
+			accounts.get(accNumber).deposit(depositMoney);
+			return true;
+		}
 	}
+	//rounding issues?
+	
 	
 	
 }
