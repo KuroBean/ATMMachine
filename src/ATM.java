@@ -24,8 +24,9 @@ public class ATM {
 	
 	
 	public void closeAccount(Integer accNumber) {
-		accounts.put(accNumber, null);
-		
+		if(accExists(accNumber)&&accounts.get(accNumber).getBalance()==0) {
+			accounts.put(accNumber, null);
+		}
 	}
 	public double checkBalance(Integer accNumber) {
 		if(!accExists(accNumber)) {
